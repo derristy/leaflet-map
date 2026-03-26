@@ -7,15 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Leaflet</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 
     <link rel="preconnect" href="https://alert-htraffic-hmap-dton.magic.org" crossorigin>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/leaflet.min.css">
-    <link rel="stylesheet" href="/css/MarkerCluster.min.css">
-    <link rel="stylesheet" href="/css/MarkerCluster.Default.min.css">
-    <link rel="stylesheet" href="/css/toastify.min.css">
-    <link rel="stylesheet" href="/css/map.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/leaflet.min.css">
+    <link rel="stylesheet" href="css/MarkerCluster.min.css">
+    <link rel="stylesheet" href="css/MarkerCluster.Default.min.css">
+    <link rel="stylesheet" href="css/toastify.min.css">
+    <link rel="stylesheet" href="css/map.css">
 </head>
 <body>
 <div class="map-settings">
@@ -33,10 +33,10 @@
 
 <div id="map"></div>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/leaflet.min.js"></script>
-<script src="/js/leaflet.markercluster.min.js"></script>
-<script src="/js/toastify.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/leaflet.min.js"></script>
+<script src="js/leaflet.markercluster.min.js"></script>
+<script src="js/toastify.min.js"></script>
 <script>
     let allowedEnergyIcons = ['power-off', 'power-on', 'power-max', 'water-off', 'water-on', 'heating-off', 'heating-on', 'gas-off', 'gas-on'];
     let icons = [
@@ -146,7 +146,7 @@
 
                         if (icons.includes(item.icon)) {
                             markerOptions.icon = L.icon({
-                                iconUrl: `/images/${item.icon}.svg`,
+                                iconUrl: `images/${item.icon}.svg`,
                                 iconSize: [29, 33],
                                 iconAnchor: [16, 32],
                                 popupAnchor: [0, -32]
@@ -230,21 +230,21 @@
         return `
                 <div class="d-flex flex-column gap-1">
                     <div>
-                        ${formatTime(item.createdAt)} (до ${formatTime(item.endAt)}) <img src="/images/emoji/23f0.png" width="20" height="20"><br>
+                        ${formatTime(item.createdAt)} (до ${formatTime(item.endAt)}) <img src="images/emoji/23f0.png" width="20" height="20"><br>
                         ${item.text}<br>
                         <div class="my-1">
                             <a href="https://t.me/Mark4Map_bot/Mark4Map?startapp=kh_${item.id}" target="_blank">Открыть</a>
                         </div>
                         <div class="d-inline-flex align-items-center gap-1">
-                            <img src="/images/emoji/1f44d.png" width="20" height="20">
+                            <img src="images/emoji/1f44d.png" width="20" height="20">
                             <span>${item.likes}</span>
                         </div>
                         <div class="d-inline-flex align-items-center gap-1">
-                            <img src="/images/emoji/1f44e.png" width="20" height="20">
+                            <img src="images/emoji/1f44e.png" width="20" height="20">
                             <span>${item.dislikes}</span>
                         </div>
                         <div class="d-inline-flex align-items-center gap-1">
-                            <img src="/images/emoji/1f464.png" width="20" height="20">
+                            <img src="images/emoji/1f464.png" width="20" height="20">
                             <span>${item.user}</span>
                         </div>
                     </div>
@@ -252,7 +252,7 @@
                         <b class="d-flex">Комментарии:</b>
                         ${item.comments.map(comment => `
                             <div>
-                                ${formatTime(comment.createdAt)} <img src="/images/emoji/23f0.png" width="20" height="20"><br>
+                                ${formatTime(comment.createdAt)} <img src="images/emoji/23f0.png" width="20" height="20"><br>
                                 ${comment.text}
                             </div>
                         `).join('')}
@@ -331,14 +331,14 @@
                         .bindPopup(`
                             <div class="d-flex flex-column gap-1">
                                 <div>
-                                    ${formatTime(item.date)} <img src="/images/emoji/23f0.png" width="20" height="20" alt=""><br>
+                                    ${formatTime(item.date)} <img src="images/emoji/23f0.png" width="20" height="20" alt=""><br>
                                     ${item.title}
                                 </div>
                                 ${item.comments.length > 0 ? `
                                     <b class="d-flex">Комментарии:</b>
                                     ${item.comments.map(comment => `
                                         <div>
-                                            ${formatTime(comment.date)} <img src="/images/emoji/23f0.png" width="20" height="20" alt=""><br>
+                                            ${formatTime(comment.date)} <img src="images/emoji/23f0.png" width="20" height="20" alt=""><br>
                                             ${comment.text}
                                         </div>
                                     `).join('')}
