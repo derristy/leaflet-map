@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Leaflet</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+
+    <link rel="preconnect" href="https://alert-htraffic-hmap-dton.magic.org" crossorigin>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/leaflet.min.css">
+    <link rel="stylesheet" href="/css/MarkerCluster.min.css">
+    <link rel="stylesheet" href="/css/MarkerCluster.Default.min.css">
+    <link rel="stylesheet" href="/css/toastify.min.css">
+    <link rel="stylesheet" href="/css/map.css">
+</head>
+<body>
+<div class="map-settings">
+    <button class="btn btn-primary p-1 btn-sm" id="refreshButton">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.05938 9.14062C4.475 6.23438 6.97813 4 10 4C11.6562 4 13.1562 4.67187 14.2437 5.75625C14.25 5.7625 14.2562 5.76875 14.2625 5.775L14.5 6H13.0031C12.45 6 12.0031 6.44687 12.0031 7C12.0031 7.55313 12.45 8 13.0031 8H17.0031C17.5562 8 18.0031 7.55313 18.0031 7V3C18.0031 2.44687 17.5562 2 17.0031 2C16.45 2 16.0031 2.44687 16.0031 3V4.66875L15.65 4.33437C14.2031 2.89375 12.2031 2 10 2C5.96875 2 2.63438 4.98125 2.08125 8.85938C2.00313 9.40625 2.38125 9.9125 2.92813 9.99063C3.475 10.0688 3.98125 9.6875 4.05938 9.14375V9.14062ZM17.9188 11.1406C17.9969 10.5938 17.6156 10.0875 17.0719 10.0094C16.5281 9.93125 16.0188 10.3125 15.9406 10.8562C15.525 13.7625 13.0219 15.9969 10 15.9969C8.34375 15.9969 6.84375 15.325 5.75625 14.2406C5.75 14.2344 5.74375 14.2281 5.7375 14.2219L5.5 13.9969H6.99688C7.55 13.9969 7.99688 13.55 7.99688 12.9969C7.99688 12.4437 7.55 11.9969 6.99688 11.9969L3 12C2.73438 12 2.47813 12.1063 2.29063 12.2969C2.10313 12.4875 1.99688 12.7406 2 13.0094L2.03125 16.9781C2.03438 17.5312 2.4875 17.975 3.04063 17.9688C3.59375 17.9625 4.0375 17.5125 4.03125 16.9594L4.01875 15.35L4.35313 15.6656C5.8 17.1062 7.79688 18 10 18C14.0312 18 17.3656 15.0187 17.9188 11.1406Z" fill="white"/>
+        </svg>
+    </button>
+    <button class="btn btn-primary p-1 btn-sm" id="energyButton">
+        <svg width="20" height="20" viewBox="0 0 26 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.0909 0.398592H19.4311L7.81033 17.4811L24.3525 13.1889L16.0856 32.9594H19.0199L11.9107 39.8194L8.0808 32.7237H11.0885L16.8309 19.8456L0.696281 24.0515L11.0945 0.398592H11.0909Z" fill="#FFFF00" stroke="#010101" stroke-width="0.797185"/>
+        </svg>
+    </button>
+</div>
+
+<div id="map"></div>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/leaflet.min.js"></script>
+<script src="/js/leaflet.markercluster.min.js"></script>
+<script src="/js/toastify.min.js"></script>
+<script>
+    let allowedEnergyIcons = ['power-off', 'power-on', 'power-max', 'water-off', 'water-on', 'heating-off', 'heating-on', 'gas-off', 'gas-on'];
+    let icons = [
+        'power-off','power-on','power-max','water-off','water-on','heating-off','heating-on',
+        'gas-off','gas-on','closure','police-car','police-walk','soldier-walk','soldier-car',
+        'soldier','police','ok','dtp','question','hazard','construction','explosion',
+        'traffic-light-off','fire','smoke','sos','water-sale','nato','pothole',
+        'shop-milk','shop-eggs','shop-cheese','shop-meat','shop-fish','shop-vegetables'
+    ];
+    let energyButton = document.querySelector('#energyButton');
+    let refreshButton = document.querySelector('#refreshButton');
+    let refreshInterval = null;
+    let currentToast = null;
+
+    let osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    });
+
+    let arcgisLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19
+    });
+
+    let opentopoLayer = L.tileLayer('https://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    });
+
+    let map = L.map('map', {
+        center: [49.9935, 36.2304],
+        zoom: 11,
+        layers: [osmLayer]
+    });
+
+    let baseMaps = {
+        "OpenStreetMap": osmLayer,
+        "ArcGIS": arcgisLayer,
+        "OpenTopoMap": opentopoLayer,
+    };
+
+    L.control.layers(baseMaps, null, {
+        position: 'bottomleft'
+    }).addTo(map);
+
+    let markersLayer = L.markerClusterGroup({
+        showCoverageOnHover: false,
+        disableClusteringAtZoom: 11
+    });
+    map.addLayer(markersLayer);
+
+    function renderMarkers() {
+
+        markersLayer.clearLayers();
+
+        fetch(`https://alert-htraffic-hmap-dton.magic.org/api/markers?t=${Date.now()}`, {
+            cache: "no-store",
+            headers: {
+                "Connection": "keep-alive"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                return response.json();
+            })
+            .catch(() => {
+                Toastify({
+                    text: `Не удалось получилось маркеры пользователей в ${getCurrentTime()}`,
+                    duration: 30000,
+                    gravity: "bottom",
+                    stopOnFocus: true,
+                    position: "right",
+                    style: {
+                        background: "#ff3366",
+                    },
+                }).showToast();
+            })
+            .then(data => {
+                if(!data) return;
+
+                data.forEach((item) => {
+                    if (localStorage.getItem('allowedEnergyIcons')) {
+                        if (!allowedEnergyIcons.includes(item.icon)) return;
+                    }
+
+                    if (item.path.length > 2) {
+                        let pathColor = item.icon.indexOf("path-ok") >= 0 || item.icon.indexOf("path-zone-ok") >= 0 ? "green" : "red";
+                        item.icon.indexOf("path-zone") >= 0 ? L.polygon(item.path, {
+                            color: pathColor,
+                            fillColor: pathColor,
+                            fillOpacity: .3,
+                            weight: 5
+                        }).addTo(markersLayer).bindPopup(getPopupContent(item)) : L.polyline(item.path, {color: pathColor, weight: 5}).addTo(markersLayer).bindPopup(getPopupContent(item))
+                    } else {
+                        let markerOptions = {};
+
+                        const now = new Date();
+                        const endDate = new Date(item.endAt);
+                        const createdDate = new Date(item.createdAt);
+
+                        const diffHours = (endDate - now) / (1000 * 60 * 60);
+                        const durationHours = (endDate - createdDate) / (1000 * 60 * 60);
+
+                        markerOptions = {
+                            opacity: (durationHours > 1 && diffHours <= 1) ? 0.5 : 1
+                        };
+
+                        if (icons.includes(item.icon)) {
+                            markerOptions.icon = L.icon({
+                                iconUrl: `/images/${item.icon}.svg`,
+                                iconSize: [29, 33],
+                                iconAnchor: [16, 32],
+                                popupAnchor: [0, -32]
+                            });
+                        }
+
+                        L.marker([item.lat, item.lng], markerOptions)
+                            .addTo(markersLayer)
+                            .bindPopup(getPopupContent(item));
+                    }
+                });
+            });
+
+        if(!localStorage.getItem('allowedEnergyIcons')) {
+            renderParserIcons('kh');
+        }
+    }
+
+    function formatTime(isoString) {
+        const date = new Date(isoString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${day}.${month}.${year} ${hours}:${minutes}`;
+    }
+
+    function iconsActiveStatus() {
+        energyButton.classList.remove('btn-success');
+        energyButton.classList.remove('btn-primary');
+        refreshButton.classList.remove('btn-success');
+        refreshButton.classList.remove('btn-primary');
+
+        if(localStorage.getItem('allowedEnergyIcons')) {
+            energyButton.classList.add('btn-success');
+        } else {
+            energyButton.classList.add('btn-primary');
+        }
+
+        if(localStorage.getItem('refreshIcons')) {
+            refreshButton.classList.add('btn-success');
+        } else {
+            refreshButton.classList.add('btn-primary');
+        }
+    }
+
+    function startRefresh() {
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                renderMarkers();
+                Toastify({
+                    text: `Маркеры обновлены в ${getCurrentTime()}`,
+                    duration: 30000,
+                    gravity: "bottom",
+                    stopOnFocus: true,
+                    position: "right",
+                }).showToast();
+            }, 30000);
+        }
+    }
+
+    function stopRefresh() {
+        if (refreshInterval) {
+            clearInterval(refreshInterval);
+            refreshInterval = null;
+        }
+    }
+
+    function getCurrentTime() {
+        const now = new Date();
+
+        return [
+            String(now.getHours()).padStart(2, '0'),
+            String(now.getMinutes()).padStart(2, '0'),
+            String(now.getSeconds()).padStart(2, '0')
+        ].join(':');
+    }
+
+    function getPopupContent(item) {
+        return `
+                <div class="d-flex flex-column gap-1">
+                    <div>
+                        ${formatTime(item.createdAt)} (до ${formatTime(item.endAt)}) <img src="/images/emoji/23f0.png" width="20" height="20"><br>
+                        ${item.text}<br>
+                        <div class="my-1">
+                            <a href="https://t.me/Mark4Map_bot/Mark4Map?startapp=kh_${item.id}" target="_blank">Открыть</a>
+                        </div>
+                        <div class="d-inline-flex align-items-center gap-1">
+                            <img src="/images/emoji/1f44d.png" width="20" height="20">
+                            <span>${item.likes}</span>
+                        </div>
+                        <div class="d-inline-flex align-items-center gap-1">
+                            <img src="/images/emoji/1f44e.png" width="20" height="20">
+                            <span>${item.dislikes}</span>
+                        </div>
+                        <div class="d-inline-flex align-items-center gap-1">
+                            <img src="/images/emoji/1f464.png" width="20" height="20">
+                            <span>${item.user}</span>
+                        </div>
+                    </div>
+                    ${item.comments.length > 0 ? `
+                        <b class="d-flex">Комментарии:</b>
+                        ${item.comments.map(comment => `
+                            <div>
+                                ${formatTime(comment.createdAt)} <img src="/images/emoji/23f0.png" width="20" height="20"><br>
+                                ${comment.text}
+                            </div>
+                        `).join('')}
+                    ` : ''}
+                </div>
+            `;
+    }
+
+    function renderParserIcons(region) {
+        fetch(`https://alert-htraffic-hmap-dton.magic.org/markers/${region}.json?t=${Date.now()}`, {
+            cache: "no-store",
+            headers: {
+                "Connection": "keep-alive"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                return response.json();
+            })
+            .catch(() => {
+                Toastify({
+                    text: `Не удалось получилось маркеры региона ${region} в ${getCurrentTime()}`,
+                    duration: 30000,
+                    gravity: "bottom",
+                    stopOnFocus: true,
+                    position: "right",
+                    style: {
+                        background: "#ff3366",
+                    },
+                }).showToast();
+            })
+            .then(data => {
+                if(!data) return;
+
+                data.points.forEach((item) => {
+                    let options = {
+                        radius: 100,
+                        color: '',
+                        fillColor: '',
+                        fillOpacity: 0.5
+                    };
+
+                    if (item.oldMinutes > 30) {
+                        options.radius = 50 + (30 / item.oldMinutes) * 150;
+                    } else if (item.oldMinutes < 15 && item.type == 1) {
+                        options.radius = 300;
+                    }
+
+                    switch (item.type) {
+                        case 0:
+                            options.color = "yellow";
+                            options.fillColor = "#933";
+                            break;
+
+                        case 1:
+                            options.color = "red";
+                            options.fillColor = "#f03";
+
+                            if (item.oldMinutes < 10) {
+                                options.radius = 350;
+                                options.fillColor = "#f55";
+                            }
+                            break;
+
+                        case -1:
+                            options.color = "green";
+                            options.fillColor = "#3F3";
+                            break;
+                    }
+
+                    let circle = L.circle([item.lat, item.lng], options)
+                        .addTo(markersLayer)
+                        .bindPopup(`
+                            <div class="d-flex flex-column gap-1">
+                                <div>
+                                    ${formatTime(item.date)} <img src="/images/emoji/23f0.png" width="20" height="20" alt=""><br>
+                                    ${item.title}
+                                </div>
+                                ${item.comments.length > 0 ? `
+                                    <b class="d-flex">Комментарии:</b>
+                                    ${item.comments.map(comment => `
+                                        <div>
+                                            ${formatTime(comment.date)} <img src="/images/emoji/23f0.png" width="20" height="20" alt=""><br>
+                                            ${comment.text}
+                                        </div>
+                                    `).join('')}
+                                ` : ''}
+                            </div>
+                        `);
+                });
+            });
+    }
+
+    renderMarkers();
+    iconsActiveStatus();
+    if (localStorage.getItem('refreshIcons')) {
+        startRefresh();
+    }
+
+    energyButton.addEventListener('click', () => {
+        if(localStorage.getItem('allowedEnergyIcons')) {
+            localStorage.removeItem('allowedEnergyIcons');
+        } else {
+            localStorage.setItem('allowedEnergyIcons', true);
+        }
+        renderMarkers();
+        iconsActiveStatus();
+    });
+
+    refreshButton.addEventListener('click', () => {
+        if (localStorage.getItem('refreshIcons')) {
+            localStorage.removeItem('refreshIcons');
+            stopRefresh();
+        } else {
+            localStorage.setItem('refreshIcons', true);
+            startRefresh();
+        }
+
+        iconsActiveStatus();
+    });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7WZF15NX96"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7WZF15NX96');
+</script>
+</body>
+</html>

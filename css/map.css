@@ -1,0 +1,18 @@
+#map {
+    height: 100vh;
+    height: 100dvh;
+}
+
+body {
+    position: relative;
+}
+
+.map-settings {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

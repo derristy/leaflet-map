@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="58"
+   height="66.667"
+   fill="none"
+   version="1.1"
+   id="svg16"
+   sodipodi:docname="fire.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="6.4434784"
+     inkscape:cx="43.687583"
+     inkscape:cy="59.517543"
+     inkscape:window-width="2560"
+     inkscape:window-height="1417"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg16"
+     showgrid="false" />
+  <defs
+     id="defs16">
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3201" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3197" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3193" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3189" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3185" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3181" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3177" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3173" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3169" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3165" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3161" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3157" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3153" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3149" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3149-6" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3153-1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3157-8" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3161-4" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3165-8" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3169-4" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3173-0" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3177-7" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3181-6" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3185-8" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3189-9" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3193-7" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3197-3" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3201-3" />
+  </defs>
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M37.434 56.755C49.337 53.142 58 42.082 58 29 58 12.984 45.016 0 29 0S0 12.984 0 29c0 13.083 8.663 24.142 20.566 27.755l6.834 9.112a2 2 0 0 0 3.2 0z"
+     fill="#fff"
+     id="path1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M29 55c14.36 0 26-11.64 26-26S43.36 3 29 3 3 14.64 3 29s11.64 26 26 26z"
+     fill="#1ab3ff"
+     id="path2" />
+  <mask
+     id="a"
+     maskUnits="userSpaceOnUse"
+     x="19.826"
+     y="21.522"
+     width="26"
+     height="27"
+     fill="#000">
+    <path
+       fill="#fff"
+       d="M19.826 21.522h26v27h-26z"
+       id="path3" />
+    <path
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="M33 46c5.596 0 10.174-4.242 10.174-12.435 0-8.192-5.276-9.043-10.513-9.043-4.638 0-9.835.85-9.835 9.043S27.404 46 33 46z"
+       id="path4" />
+  </mask>
+  <mask
+     id="b"
+     maskUnits="userSpaceOnUse"
+     x="16.435"
+     y="16.435"
+     width="32"
+     height="19"
+     fill="#000">
+    <path
+       fill="#fff"
+       d="M16.435 16.435h32v19h-32z"
+       id="path8" />
+    <path
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="M32.66 32.66c7.305 0 13.227-2.96 13.227-6.612s-5.922-6.613-13.226-6.613c-7.305 0-13.226 2.96-13.226 6.613 0 3.652 5.921 6.613 13.226 6.613z"
+       id="path9" />
+  </mask>
+  <mask
+     id="c"
+     mask-type="alpha"
+     maskUnits="userSpaceOnUse"
+     x="20"
+     y="29"
+     width="26"
+     height="9">
+    <path
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="M21.741 30.74c.521 3.168 5.391 5.651 11.797 5.651 5.388 0 10.202-2.483 10.72-5.652z"
+       fill="#fff"
+       id="path15" />
+    <path
+       d="M21.741 30.74v-1.131a1.13 1.13 0 0 0-1.115 1.314zm22.517 0 1.115.182a1.13 1.13 0 0 0-1.115-1.313zm-23.632.183c.346 2.108 2.08 3.758 4.31 4.847 2.27 1.107 5.265 1.752 8.602 1.752V35.26c-3.069 0-5.711-.597-7.61-1.523-1.936-.945-2.897-2.121-3.071-3.182zm12.912 6.599c2.855 0 5.59-.656 7.71-1.767 2.083-1.09 3.784-2.741 4.125-4.834l-2.23-.364c-.177 1.077-1.142 2.252-2.943 3.195-1.762.923-4.13 1.509-6.662 1.509zm10.72-7.913H21.74v2.26h22.517z"
+       fill="#fff"
+       id="path16" />
+  </mask>
+  <g
+     id="g2"
+     transform="matrix(0.3123444,0,0,0.3123444,14.126096,8.0310195)">
+    <path
+       class="st0"
+       d="M 18.61,54.89 C 15.7,28.8 30.94,10.45 59.52,0 42.02,22.71 74.44,47.31 76.23,70.89 80.42,63.74 82.8,54.2 83.27,41.44 c 21.43,33.62 3.66,88.57 -43.5,80.67 -4.33,-0.72 -8.5,-2.09 -12.3,-4.13 C 10.27,108.8 0,88.79 0,69.68 0,57.5 5.21,46.63 11.95,37.99 c 0.9,8.46 2.82,14.77 6.66,16.9 z"
+       id="path1-9"
+       style="clip-rule:evenodd;fill:#ec6f59;fill-rule:evenodd" />
+    <path
+       class="st1"
+       d="m 33.87,92.58 c -4.86,-12.55 -4.19,-32.82 9.42,-39.93 0.1,23.3 23.05,26.27 18.8,51.14 3.92,-4.44 5.9,-11.54 6.25,-17.15 6.22,14.24 1.34,25.63 -7.53,31.43 -26.97,17.64 -50.19,-18.12 -34.75,-37.72 0.47,4.38 5.83,11.14 7.81,12.23 z"
+       id="path2-4"
+       style="clip-rule:evenodd;fill:#fad15c;fill-rule:evenodd" />
+  </g>
+</svg>
