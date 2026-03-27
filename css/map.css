@@ -16,3 +16,8 @@ body {
     align-items: center;
     gap: 5px;
 }
+
+.map-comments {
+    max-height: 200px;
+    overflow-y: auto;
+}

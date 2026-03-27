@@ -265,12 +265,14 @@
                     </div>
                     ${item.comments.length > 0 ? `
                         <b class="d-flex">Комментарии:</b>
-                        ${item.comments.map(comment => `
-                            <div>
-                                ${formatTime(comment.createdAt)} <img src="images/emoji/23f0.png" width="20" height="20"><br>
-                                ${comment.text}
-                            </div>
-                        `).join('')}
+                        <div class="d-flex gap-1 flex-column map-comments">
+                            ${item.comments.map(comment => `
+                                <div>
+                                    ${formatTime(comment.createdAt)} <img src="images/emoji/23f0.png" width="20" height="20"><br>
+                                    ${comment.text}
+                                </div>
+                            `).join('')}
+                        </div>
                     ` : ''}
                 </div>
             `;
@@ -351,12 +353,14 @@
                                 </div>
                                 ${item.comments.length > 0 ? `
                                     <b class="d-flex">Комментарии:</b>
-                                    ${item.comments.map(comment => `
-                                        <div>
-                                            ${formatTime(comment.date)} <img src="images/emoji/23f0.png" width="20" height="20" alt=""><br>
-                                            ${comment.text}
-                                        </div>
-                                    `).join('')}
+                                    <div class="d-flex gap-1 flex-column map-comments">
+                                        ${item.comments.map(comment => `
+                                            <div>
+                                                ${formatTime(comment.date)} <img src="images/emoji/23f0.png" width="20" height="20" alt=""><br>
+                                                ${comment.text}
+                                            </div>
+                                        `).join('')}
+                                    </div>
                                 ` : ''}
                             </div>
                         `);
