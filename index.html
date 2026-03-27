@@ -63,6 +63,18 @@
         maxZoom: 19
     });
 
+    let mtbLayer = L.tileLayer('http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    });
+
+    let vpohidLayer = L.tileLayer('https://maps.vpohid.com.ua/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    });
+
+    let cartoLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    });
+
     let map = L.map('map', {
         center: [49.9935, 36.2304],
         zoom: 11,
@@ -73,6 +85,9 @@
         "OpenStreetMap": osmLayer,
         "ArcGIS": arcgisLayer,
         "OpenTopoMap": opentopoLayer,
+        "MTBMap": mtbLayer,
+        "В поход": vpohidLayer,
+        "Carto": cartoLayer,
     };
 
     L.control.layers(baseMaps, null, {
